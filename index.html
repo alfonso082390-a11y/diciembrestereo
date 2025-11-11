@@ -21,13 +21,26 @@
     h1{font-family:'Montserrat',sans-serif;font-size:clamp(1.6rem,1.2rem+2vw,3rem);margin:0}
     .tag{opacity:.95;margin:6px 0 0}
 
+    /* ❄️ Nieve */
     .snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
     .flake{position:absolute;top:-10px;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.85;filter:blur(.3px)}
 
+    /* 🎇 Guirnalda superior multicolor */
+    .garland{position:fixed;top:0;left:0;width:100%;height:52px;pointer-events:none;z-index:5}
+    .garland::before{content:"";position:absolute;left:0;right:0;top:18px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,#2b1b00 0 24px,#3a2605 24px 48px);opacity:.7;filter:drop-shadow(0 2px 3px #0007)}
+    .bulb{position:absolute;top:6px;width:20px;height:20px;border-radius:50%;box-shadow:0 0 10px currentColor,0 0 22px currentColor;transform-origin:top center}
+    .bulb.cap{position:absolute;top:4px;width:10px;height:6px;left:50%;transform:translateX(-50%);background:#555;border-radius:2px}
+    .bulb:nth-child(odd){animation:twinkle 2.6s infinite ease-in-out alternate}
+    .bulb:nth-child(even){animation:twinkle 3.4s infinite ease-in-out alternate}
+    @keyframes twinkle{from{opacity:.55;filter:brightness(.9)}to{opacity:1;filter:brightness(1.3)}}
+    /* ⚡ Intensidad extra cuando la radio está sonando (beat) */
+    .garland.beat .bulb{animation:twinkle 2s infinite ease-in-out alternate, pulse 1.05s infinite ease-in-out}
+    @keyframes pulse{0%,100%{transform:translateY(0) rotate(-2deg);box-shadow:0 0 14px currentColor,0 0 28px currentColor}50%{transform:translateY(1px) rotate(2deg);box-shadow:0 0 26px currentColor,0 0 42px currentColor}}
+
     .audio-wrap{background:#072417;border:1px solid #ffffff20;border-radius:14px;padding:14px;margin:10px auto;width:100%;max-width:420px}
     audio{width:100%}
-    #unmute{display:none;margin-top:12px;border:none;border-radius:24px;padding:12px 16px;font-weight:900;cursor:pointer;background:linear-gradient(180deg,var(--gold),#d8b24d);color:#3b2600;animation:pulse 2.2s infinite ease-in-out}
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+    #unmute{display:none;margin-top:12px;border:none;border-radius:24px;padding:12px 16px;font-weight:900;cursor:pointer;background:linear-gradient(180deg,var(--gold),#d8b24d);color:#3b2600;animation:pulsebtn 2.2s infinite ease-in-out}
+    @keyframes pulsebtn{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
     .solicita{margin-top:26px;padding:20px;border-radius:16px;background:linear-gradient(90deg,#e53935,#f7d774,#165936);background-size:400% 400%;animation:luces 4s linear infinite;box-shadow:0 0 25px #0008;}
     @keyframes luces{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
@@ -38,7 +51,7 @@
     .btn:hover{transform:scale(1.08);box-shadow:0 0 30px #ffd36b,0 0 60px #ff0000;}
     .btn.app{color:#2d1b00}
 
-    .card{background:#00000050;border:1px solid #ffffff2a;border-radius:18px;padding:20px;margin-top:22px;backdrop-filter:blur(10px);box-shadow:0 14px 34px #0006;display:inline-block;text-align:center}
+    .card{background:#00000050;border:1px solid #ffffff2a;border-radius:18px;padding:20px;margin-top:22px;backdrop-filter:blur(10px);box-shadow:0 14px 34px #0006;display:inline-block;text-align:center;width:min(100%,1080px)}
     .card h2{font-family:'Montserrat',sans-serif;margin:0 0 10px}
     .lead{opacity:.95}
 
@@ -47,10 +60,24 @@
     .num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.4rem,1.1rem+1.4vw,2.4rem)}
     .label{opacity:.8;font-weight:800}
 
+    /* 🎶 Top de la semana */
+    .top{margin-top:22px;text-align:left}
+    .song{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #ffffff20;border-radius:12px;background:#091f15}
+    .song + .song{margin-top:10px}
+    .left{display:flex;align-items:center;gap:12px}
+    .pos{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg,#ffd36b,#e0b44a);color:#2a1b00;font-weight:900}
+    .title{font-weight:800}
+    .artist{opacity:.85;font-size:.95rem}
+    .ask{padding:8px 12px;border-radius:999px;border:0;background:#fff;color:#b00000;font-weight:900;cursor:pointer;text-decoration:none}
+    .ask:hover{transform:translateY(-1px)}
+
     footer{margin:36px 0 10px;text-align:center;opacity:.9;z-index:2;position:relative}
   </style>
 </head>
 <body>
+  <!-- 🎇 Guirnalda superior -->
+  <div class="garland" id="garland"></div>
+  <!-- ❄️ Nieve -->
   <div class="snow" id="snow"></div>
 
   <div class="container">
@@ -79,6 +106,18 @@
       </div>
     </section>
 
+    <section class="card top">
+      <h2>🔥 Top de la semana</h2>
+      <p class="lead">Las más pedidas por nuestros oyentes</p>
+      <div id="top-list">
+        <div class="song"><div class="left"><div class="pos">1</div><div><div class="title">La Víspera de Año Nuevo</div><div class="artist">Pastor López</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Quiero%20la%20canci%C3%B3n%3A%20La%20V%C3%ADspera%20de%20A%C3%B1o%20Nuevo%20-%20Pastor%20L%C3%B3pez">Pedir</a></div>
+        <div class="song"><div class="left"><div class="pos">2</div><div><div class="title">Año Nuevo, Vida Nueva</div><div class="artist">Billos Caracas Boys</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Quiero%20la%20canci%C3%B3n%3A%20A%C3%B1o%20Nuevo%2C%20Vida%20Nueva%20-%20Billos%20Caracas%20Boys">Pedir</a></div>
+        <div class="song"><div class="left"><div class="pos">3</div><div><div class="title">Cinco Pa' Las Doce</div><div class="artist">Néstor Zavarce</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Quiero%20la%20canci%C3%B3n%3A%20Cinco%20Pa'%20Las%20Doce%20-%20N%C3%A9stor%20Zavarce">Pedir</a></div>
+        <div class="song"><div class="left"><div class="pos">4</div><div><div class="title">El Burrito Sabanero</div><div class="artist">Juanes (versión)</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Quiero%20la%20canci%C3%B3n%3A%20El%20Burrito%20Sabanero%20-%20Juanes">Pedir</a></div>
+        <div class="song"><div class="left"><div class="pos">5</div><div><div class="title">Faltan Cinco pa' las Doce</div><div class="artist">Los 50 de Joselito</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Quiero%20la%20canci%C3%B3n%3A%20Faltan%20Cinco%20pa'%20las%20Doce%20-%20Los%2050%20de%20Joselito">Pedir</a></div>
+      </div>
+    </section>
+
     <section class="card">
       <h2>Contador para diciembre</h2>
       <p class="lead">¡Rumbo al <strong>1 de diciembre</strong>! 🎅✨</p>
@@ -98,7 +137,7 @@
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // Nieve animada
+    // ❄️ Nieve animada
     (function(){
       const snow=document.getElementById('snow');
       for(let i=0;i<90;i++){
@@ -114,21 +153,59 @@
       document.head.appendChild(style);
     })();
 
+    // 🎇 Guirnalda superior de luces multicolor
+    (function(){
+      const g=document.getElementById('garland');
+      const colors=['#ff3b3b','#66ff99','#7dc3ff','#ffd36b','#ff8bf2'];
+      const total=48;
+      for(let i=0;i<total;i++){
+        const bulb=document.createElement('span');
+        bulb.className='bulb';
+        bulb.style.left=(i*(100/(total-1)))+'%';
+        bulb.style.color=colors[i%colors.length];
+        g.appendChild(bulb);
+      }
+    })();
+
+    // 🔊 Autoplay con botón de activar sonido + sincronía de luces
     const radio=document.getElementById('radio');
     const unmute=document.getElementById('unmute');
+    const garland=document.getElementById('garland');
     function toggle(){unmute.style.display=radio.muted?'inline-block':'none'}
-    radio.addEventListener('play',()=>{toggle();});
-    document.addEventListener('click',()=>{radio.play().catch(()=>{});toggle()},{once:true});
-    unmute.addEventListener('click',()=>{radio.muted=false;radio.play();toggle();new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();});
+    function beat(){ if(!radio.muted && !radio.paused) garland.classList.add('beat'); else garland.classList.remove('beat'); }
+    radio.addEventListener('play',()=>{toggle();beat();});
+    radio.addEventListener('pause',beat);
+    radio.addEventListener('volumechange',beat);
+    document.addEventListener('click',()=>{radio.play().catch(()=>{});toggle();beat()},{once:true});
+    unmute.addEventListener('click',()=>{radio.muted=false;radio.play();toggle();beat();new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();});
 
+    // 🔔 Campanitas en el botón principal Pedir Canción (una vez por interacción)
     const pedir=document.getElementById('pedir');
     pedir.addEventListener('mouseenter',()=>{
       const bells=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3');
       bells.volume=0.6; bells.play();
     });
 
-    function nextDecFirst(){const now=new Date();const year= now.getMonth()>10||(now.getMonth()===10&&now.getDate()>30)?now.getFullYear()+1:now.getFullYear();return new Date(year,11,1,0,0,0,0);}
-    function renderCountdown(){const target=nextDecFirst();const now=new Date();let diff=target-now;if(diff<0)diff=0;const sec=Math.floor(diff/1000);const d=Math.floor(sec/86400);const h=Math.floor((sec%86400)/3600);const m=Math.floor((sec%3600)/60);const s=sec%60;document.getElementById('d').textContent=d;document.getElementById('h').textContent=String(h).padStart(2,'0');document.getElementById('m').textContent=String(m).padStart(2,'0');document.getElementById('s').textContent=String(s).padStart(2,'0');}
+    // ⏱️ Countdown al 1 de diciembre (cada año)
+    function nextDecFirst(){
+      const now=new Date();
+      const year= now.getMonth()>10||(now.getMonth()===10&&now.getDate()>30)?now.getFullYear()+1:now.getFullYear();
+      return new Date(year,11,1,0,0,0,0);
+    }
+    function renderCountdown(){
+      const target=nextDecFirst();
+      const now=new Date();
+      let diff=target-now;if(diff<0)diff=0;
+      const sec=Math.floor(diff/1000);
+      const d=Math.floor(sec/86400);
+      const h=Math.floor((sec%86400)/3600);
+      const m=Math.floor((sec%3600)/60);
+      const s=sec%60;
+      document.getElementById('d').textContent=d;
+      document.getElementById('h').textContent=String(h).padStart(2,'0');
+      document.getElementById('m').textContent=String(m).padStart(2,'0');
+      document.getElementById('s').textContent=String(s).padStart(2,'0');
+    }
     setInterval(renderCountdown,1000);renderCountdown();
   </script>
 </body>
