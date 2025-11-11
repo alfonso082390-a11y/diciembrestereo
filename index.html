@@ -59,12 +59,6 @@
     .label{opacity:.8;font-weight:800}
 
     footer{margin:36px 0 10px;text-align:center;opacity:.9}
-
-    .qr{margin-top:16px;position:relative;display:inline-block}
-    .qr img{width:140px;height:140px;border-radius:8px;box-shadow:0 0 20px #f7d774;animation:glow 2s infinite alternate ease-in-out}
-    @keyframes glow{0%{box-shadow:0 0 10px #f7d774,0 0 20px #ff3b3b;}100%{box-shadow:0 0 40px #f7d774,0 0 60px #ff3b3b;transform:scale(1.05)}}
-    .qr.active img{animation:beat 1s infinite ease-in-out}
-    @keyframes beat{0%,100%{transform:scale(1);box-shadow:0 0 25px #ff0000,0 0 50px #ffd36b;}50%{transform:scale(1.1);box-shadow:0 0 60px #ffd36b,0 0 80px #ff0000;}}
   </style>
 </head>
 <body>
@@ -91,10 +85,6 @@
       <div>
         <a class="btn primary" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20mi%20canci%C3%B3n%20parrandera!" target="_blank" rel="noopener">📲 WhatsApp 305 205 1610</a>
         <a class="btn gold" href="https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest" target="_blank" rel="noopener">▶️ Descarga la App</a>
-      </div>
-      <div class="qr" id="qr">
-        <p>Escanéa para descargar la app:</p>
-        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest" alt="QR App Diciembre Stereo">
       </div>
     </section>
 
@@ -147,20 +137,11 @@
 
     const radio=document.getElementById('radio');
     const unmute=document.getElementById('unmute');
-    const qr=document.getElementById('qr');
     function toggle(){unmute.style.display=radio.muted?'inline-block':'none'}
-    radio.addEventListener('play',()=>{
-      toggle();
-      if(!radio.muted) qr.classList.add('active');
-    });
+    radio.addEventListener('play',()=>{toggle();});
     document.addEventListener('click',()=>{radio.play().catch(()=>{});toggle()},{once:true});
-    unmute.addEventListener('click',()=>{
-      radio.muted=false;
-      radio.play();
-      toggle();
-      qr.classList.add('active');
-      new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();
-    });
+    unmute.addEventListener('click',()=>{radio.muted=false;radio.play();toggle();new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();});
   </script>
 </body>
 </html>
+
