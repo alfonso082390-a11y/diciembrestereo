@@ -13,13 +13,16 @@
   <style>
     :root{--green1:#0d2a1a;--green2:#165936;--red:#e53935;--gold:#f7d774;--white:#fff;}
     *{box-sizing:border-box}
-    body{margin:0;font-family:'Nunito',sans-serif;color:var(--white);background:linear-gradient(160deg,var(--green1),var(--green2));min-height:100vh;overflow-x:hidden}
-    .container{max-width:1080px;margin:0 auto;padding:24px;text-align:center}
+    body{margin:0;font-family:'Nunito',sans-serif;color:var(--white);background:linear-gradient(160deg,var(--green1),var(--green2));min-height:100vh;overflow-x:hidden;position:relative}
+    .container{max-width:1080px;margin:0 auto;padding:24px;text-align:center;position:relative;z-index:2}
 
     header{display:flex;flex-direction:column;align-items:center;gap:8px}
     .logo{height:140px;width:auto;filter:drop-shadow(0 6px 20px #0007)}
     h1{font-family:'Montserrat',sans-serif;font-size:clamp(1.6rem,1.2rem+2vw,3rem);margin:0}
     .tag{opacity:.95;margin:6px 0 0}
+
+    .snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .flake{position:absolute;top:-10px;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.85;filter:blur(.3px)}
 
     .audio-wrap{background:#072417;border:1px solid #ffffff20;border-radius:14px;padding:14px;margin:10px auto;width:100%;max-width:420px}
     audio{width:100%}
@@ -44,10 +47,12 @@
     .num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.4rem,1.1rem+1.4vw,2.4rem)}
     .label{opacity:.8;font-weight:800}
 
-    footer{margin:36px 0 10px;text-align:center;opacity:.9}
+    footer{margin:36px 0 10px;text-align:center;opacity:.9;z-index:2;position:relative}
   </style>
 </head>
 <body>
+  <div class="snow" id="snow"></div>
+
   <div class="container">
     <header>
       <img class="logo" src="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" alt="Logo Diciembre Stereo"/>
@@ -93,6 +98,22 @@
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
 
+    // Nieve animada
+    (function(){
+      const snow=document.getElementById('snow');
+      for(let i=0;i<90;i++){
+        const f=document.createElement('span');
+        f.className='flake';
+        f.style.left=Math.random()*100+'%';
+        f.style.animation=`fall ${6+Math.random()*10}s linear ${Math.random()*6}s infinite`;
+        f.style.width=f.style.height=2+Math.random()*6+'px';
+        snow.appendChild(f);
+      }
+      const style=document.createElement('style');
+      style.textContent='@keyframes fall{to{transform:translateY(105vh)}}';
+      document.head.appendChild(style);
+    })();
+
     const radio=document.getElementById('radio');
     const unmute=document.getElementById('unmute');
     function toggle(){unmute.style.display=radio.muted?'inline-block':'none'}
@@ -100,35 +121,15 @@
     document.addEventListener('click',()=>{radio.play().catch(()=>{});toggle()},{once:true});
     unmute.addEventListener('click',()=>{radio.muted=false;radio.play();toggle();new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();});
 
-    // Campanitas en el botón de pedir canción (una vez por interacción)
     const pedir=document.getElementById('pedir');
     pedir.addEventListener('mouseenter',()=>{
       const bells=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3');
       bells.volume=0.6; bells.play();
     });
 
-    // Countdown al 1 de diciembre (cada año)
-    function nextDecFirst(){
-      const now=new Date();
-      const year= now.getMonth()>10 || (now.getMonth()===10 && now.getDate()>30) ? now.getFullYear()+1 : now.getFullYear();
-      return new Date(year,11,1,0,0,0,0);
-    }
-    function renderCountdown(){
-      const target=nextDecFirst();
-      const now=new Date();
-      let diff=target-now; if(diff<0) diff=0;
-      const sec=Math.floor(diff/1000);
-      const d=Math.floor(sec/86400);
-      const h=Math.floor((sec%86400)/3600);
-      const m=Math.floor((sec%3600)/60);
-      const s=sec%60;
-      document.getElementById('d').textContent=d;
-      document.getElementById('h').textContent=String(h).padStart(2,'0');
-      document.getElementById('m').textContent=String(m).padStart(2,'0');
-      document.getElementById('s').textContent=String(s).padStart(2,'0');
-    }
-    setInterval(renderCountdown,1000); renderCountdown();
+    function nextDecFirst(){const now=new Date();const year= now.getMonth()>10||(now.getMonth()===10&&now.getDate()>30)?now.getFullYear()+1:now.getFullYear();return new Date(year,11,1,0,0,0,0);}
+    function renderCountdown(){const target=nextDecFirst();const now=new Date();let diff=target-now;if(diff<0)diff=0;const sec=Math.floor(diff/1000);const d=Math.floor(sec/86400);const h=Math.floor((sec%86400)/3600);const m=Math.floor((sec%3600)/60);const s=sec%60;document.getElementById('d').textContent=d;document.getElementById('h').textContent=String(h).padStart(2,'0');document.getElementById('m').textContent=String(m).padStart(2,'0');document.getElementById('s').textContent=String(s).padStart(2,'0');}
+    setInterval(renderCountdown,1000);renderCountdown();
   </script>
 </body>
 </html>
-
