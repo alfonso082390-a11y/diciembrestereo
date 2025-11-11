@@ -2,135 +2,165 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <!-- Iconos / favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png">
+  <meta name="theme-color" content="#165936" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Diciembre Estéreo | ¡La casa de la parranda navideña!</title>
-  <meta name="description" content="Diciembre Estéreo – música parrandera, tropical y navideña. ¡Súbele volumen!" />
+  <title>Diciembre Stereo | La casa de la parranda navideña</title>
+  <meta name="description" content="Diciembre Stereo – música parrandera, tropical y navideña 24/7. ¡Súbele volumen!" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0b1d12;
-      --bg2:#154d2e;
-      --red:#e53935;
-      --gold:#f9d66b;
-      --white:#ffffff;
+      --green1:#0d2a1a; --green2:#165936; --red:#e53935; --gold:#f7d774; --white:#fff;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;color:var(--white);
-      font-family:'Nunito',sans-serif;
-      background:linear-gradient(160deg,var(--bg1),var(--bg2)),url('https://i.imgur.com/hm8H7yD.jpg');
-      background-size:cover;background-attachment:fixed;background-position:center;
-      min-height:100vh;overflow-x:hidden;
-    }
-    .container{max-width:1100px;margin:0 auto;padding:24px;position:relative;z-index:1;}
-    header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;text-align:center;}
-    header img.logo{height:100px;width:auto;filter:drop-shadow(0 4px 18px #0007)}
-    header h1{font-family:'Montserrat',sans-serif;margin:10px 0 0;font-size:clamp(1.6rem,1.2rem+1.8vw,3rem)}
-    header p{margin:4px 0 0;opacity:.9;font-size:1.1rem}
-    .tree{width:160px;margin:0 auto;animation:glow 2s infinite alternate ease-in-out;}
-    @keyframes glow{from{filter:drop-shadow(0 0 0px gold)}to{filter:drop-shadow(0 0 10px gold)}}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:24px}
-    @media(max-width:880px){.hero{grid-template-columns:1fr}}
-    .card{background:rgba(0,0,0,0.5);border:1px solid #ffffff30;border-radius:18px;padding:20px;backdrop-filter:blur(10px);box-shadow:0 10px 30px #0006}
-    .card h2{margin:0 0 12px;font-family:'Montserrat',sans-serif;font-weight:800}
-    .lead{font-size:1.05rem;opacity:.95}
-    .player{display:flex;flex-direction:column;gap:14px;position:relative}
-    .audio-wrap{background:#06170f;border:1px solid #ffffff1c;border-radius:14px;padding:14px}
-    audio{width:100%}
-    #unmute-btn{display:none;position:absolute;bottom:20px;right:20px;background:linear-gradient(180deg,#ffd36b,#e0b44a);color:#3b2600;font-weight:800;border:none;padding:12px 18px;border-radius:50px;box-shadow:0 4px 12px #0007;cursor:pointer;animation:pulse 2s infinite ease-in-out}
-    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-    .btn{--btn-bg:#ffffff0f;--btn-border:#ffffff35;appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--white);padding:12px 16px;border-radius:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 16px #0005;transition:transform .12s ease,background .2s ease}
-    .btn:hover{transform:translateY(-1px);background:#ffffff22}
-    .btn.primary{--btn-bg:linear-gradient(180deg,#e73f3b,#c62828);--btn-border:#0000}
-    .btn.gold{--btn-bg:linear-gradient(180deg,#ffd36b,#e0b44a);color:#3b2600}
-    .countdown{display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:12px;margin-top:12px}
-    .unit{background:#05140c;border:1px solid #ffffff1c;border-radius:14px;padding:14px;text-align:center}
-    .num{font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,1.1rem+1.5vw,2.4rem);font-weight:800}
-    .label{opacity:.8;font-weight:700;font-size:.9rem}
-    footer{margin:40px 0 10px;opacity:.8;text-align:center;font-size:.95rem}
-    .lights{position:absolute;top:0;left:0;width:100%;height:30px;overflow:hidden;z-index:2}
-    .bulb{position:absolute;top:0;width:14px;height:14px;border-radius:50%;filter:blur(0.2px) drop-shadow(0 0 6px currentColor)}
+    body{margin:0;font-family:'Nunito',system-ui,Arial,sans-serif;color:var(--white);
+      background: radial-gradient(800px 400px at 10% 0%, #0e3a22 0%, transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, #0a2c1b 0%, transparent 65%),
+                  linear-gradient(160deg,var(--green1),var(--green2));
+      min-height:100vh;overflow-x:hidden}
+    .container{max-width:1080px;margin:0 auto;padding:24px;text-align:center}
+
+    header{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+    .logo{height:140px;width:auto;filter:drop-shadow(0 6px 20px #0007);margin-bottom:10px}
+    h1{font-family:'Montserrat',sans-serif;margin:0;font-size:clamp(1.6rem,1.2rem+2vw,3rem)}
+    .tag{opacity:.95;margin:6px 0 0}
+
+    .garland{position:fixed;top:0;left:0;width:100%;height:30px;pointer-events:none;z-index:3}
+    .bulb{position:absolute;top:0;width:14px;height:14px;border-radius:50%;filter:blur(.2px) drop-shadow(0 0 6px currentColor)}
     .bulb:nth-child(odd){animation:twinkle 2.8s infinite ease-in-out alternate}
     .bulb:nth-child(even){animation:twinkle 3.6s infinite ease-in-out alternate}
     @keyframes twinkle{from{opacity:.55;transform:translateY(0)}to{opacity:1;transform:translateY(-1px)}}
-    .snow{pointer-events:none;position:fixed;inset:0;overflow:hidden;z-index:1}
-    .flake{position:absolute;top:-10px;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.8;filter:blur(.3px)}
+
+    .snow{position:fixed;inset:0;pointer-events:none;z-index:2}
+    .flake{position:absolute;top:-10px;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.85;filter:blur(.3px)}
+
+    .card{background:#00000050;border:1px solid #ffffff2a;border-radius:18px;padding:20px;margin-top:20px;backdrop-filter:blur(10px);box-shadow:0 14px 34px #0006;display:inline-block;text-align:center}
+    .card h2{font-family:'Montserrat',sans-serif;margin:0 0 10px}
+    .lead{opacity:.95}
+
+    .audio-wrap{background:#072417;border:1px solid #ffffff20;border-radius:14px;padding:14px;margin:10px auto;width:100%;max-width:400px}
+    audio{width:100%}
+    #unmute{display:none;margin-top:12px;border:none;border-radius:24px;padding:12px 16px;font-weight:900;cursor:pointer;box-shadow:0 6px 16px #0007;background:linear-gradient(180deg,var(--gold),#d8b24d);color:#3b2600;animation:pulse 2.2s infinite ease-in-out}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+    .btn{--bg:linear-gradient(180deg,#ffffff1a,#ffffff12);--bd:#ffffff3a;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);background:var(--bg);padding:12px 16px;border-radius:14px;color:#fff;text-decoration:none;font-weight:800;box-shadow:0 6px 16px #0005;margin:6px}
+    .btn:hover{background:#ffffff25}
+    .btn.primary{--bg:linear-gradient(180deg,#e73f3b,#c62828);--bd:#0000}
+    .btn.gold{--bg:linear-gradient(180deg,var(--gold),#d8b24d);color:#3b2600}
+
+    .countdown{display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:10px;justify-content:center;margin:20px auto;max-width:400px}
+    .unit{background:#072417;border:1px solid #ffffff20;border-radius:14px;padding:12px;text-align:center}
+    .num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.4rem,1.1rem+1.4vw,2.4rem)}
+    .label{opacity:.8;font-weight:800}
+
+    footer{margin:36px 0 10px;text-align:center;opacity:.9}
+
+    .qr{margin-top:16px;position:relative;display:inline-block}
+    .qr img{width:140px;height:140px;border-radius:8px;box-shadow:0 0 20px #f7d774;animation:glow 2s infinite alternate ease-in-out}
+    @keyframes glow{0%{box-shadow:0 0 10px #f7d774,0 0 20px #ff3b3b;}100%{box-shadow:0 0 40px #f7d774,0 0 60px #ff3b3b;transform:scale(1.05)}}
+    .qr.active img{animation:beat 1s infinite ease-in-out}
+    @keyframes beat{0%,100%{transform:scale(1);box-shadow:0 0 25px #ff0000,0 0 50px #ffd36b;}50%{transform:scale(1.1);box-shadow:0 0 60px #ffd36b,0 0 80px #ff0000;}}
   </style>
 </head>
 <body>
-  <div class="snow" aria-hidden="true" id="snow"></div>
-  <div class="lights" id="lights"></div>
+  <div class="snow" id="snow"></div>
+  <div class="garland" id="garland"></div>
+
   <div class="container">
     <header>
-      <img class="logo" src="logo-diciembre-st9.jpg" alt="Logo Diciembre Estéreo" />
-      <div class="brand">
-        <h1>Diciembre Estéreo</h1>
-        <p>La casa oficial de la parranda navideña 🎄🥁 ¡Súbele volumen!</p>
-      </div>
+      <img class="logo" src="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" alt="Logo Diciembre Stereo"/>
+      <h1>Diciembre Stereo</h1>
+      <p class="tag">Como aquellos diciembres • ¡Súbele volumen! 🎄🥁</p>
     </header>
 
-    <img class="tree" src="https://cdn-icons-png.flaticon.com/512/616/616554.png" alt="Árbol de Navidad" />
+    <section class="card">
+      <h2>Escúchanos en vivo</h2>
+      <p class="lead">Música parrandera, tropical y decembrina 24/7.</p>
+      <div class="audio-wrap">
+        <audio id="radio" muted autoplay controls>
+          <source src="https://c23.radioboss.fm:8195/stream" type="audio/mpeg" />
+          Tu navegador no soporta audio HTML5.
+        </audio>
+      </div>
+      <button id="unmute">🔔 Activar sonido</button>
+      <div>
+        <a class="btn primary" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20mi%20canci%C3%B3n%20parrandera!" target="_blank" rel="noopener">📲 WhatsApp 305 205 1610</a>
+        <a class="btn gold" href="https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest" target="_blank" rel="noopener">▶️ Descarga la App</a>
+      </div>
+      <div class="qr" id="qr">
+        <p>Escanéa para descargar la app:</p>
+        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest" alt="QR App Diciembre Stereo">
+      </div>
+    </section>
 
-    <section class="hero">
-      <article class="card">
-        <h2>Escúchanos en vivo</h2>
-        <p class="lead">Música parrandera, tropical y decembrina, 24/7.</p>
-        <div class="player">
-          <div class="audio-wrap">
-            <audio id="radio" preload="none" muted autoplay controls>
-              <source src="https://c23.radioboss.fm:8195/stream" type="audio/mpeg" />
-              Tu navegador no soporta audio HTML5.
-            </audio>
-          </div>
-          <button id="unmute-btn">🔔 Activar sonido</button>
-          <div class="cta">
-            <a class="btn primary" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Est%C3%A9reo%2C%20quiero%20mi%20canci%C3%B3n%20parrandera!" target="_blank" rel="noopener">📲 WhatsApp 305 205 1610</a>
-            <a class="btn gold" href="https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest" target="_blank" rel="noopener">▶️ Descarga la App</a>
-          </div>
-        </div>
-      </article>
-
-      <aside class="card">
-        <h2>Contador para DICIEMBRE</h2>
-        <p class="lead">¡Faltan estas horitas para el <strong>1 de diciembre</strong>! 🎅✨</p>
-        <div class="countdown" id="countdown" role="timer" aria-live="polite">
-          <div class="unit"><div class="num" id="d">--</div><div class="label">DÍAS</div></div>
-          <div class="unit"><div class="num" id="h">--</div><div class="label">HORAS</div></div>
-          <div class="unit"><div class="num" id="m">--</div><div class="label">MIN</div></div>
-          <div class="unit"><div class="num" id="s">--</div><div class="label">SEG</div></div>
-        </div>
-        <p style="margin-top:12px">Cuando llegue el día, ¡encendemos la Navidad en <strong>Diciembre Estéreo</strong>! 🔔</p>
-      </aside>
+    <section class="card">
+      <h2>Contador para diciembre</h2>
+      <p class="lead">¡Rumbo al <strong>1 de diciembre</strong>! 🎅✨</p>
+      <div class="countdown" id="countdown">
+        <div class="unit"><div class="num" id="d">--</div><div class="label">DÍAS</div></div>
+        <div class="unit"><div class="num" id="h">--</div><div class="label">HORAS</div></div>
+        <div class="unit"><div class="num" id="m">--</div><div class="label">MIN</div></div>
+        <div class="unit"><div class="num" id="s">--</div><div class="label">SEG</div></div>
+      </div>
     </section>
 
     <footer>
-      © <span id="year"></span> Diciembre Estéreo · Grupo Bacanísimo · Medellín & Colombia 🎄✨
+      © <span id="year"></span> Diciembre Stereo · Grupo Bacanísimo · Medellín & Colombia
     </footer>
   </div>
 
   <script>
-    // Luces navideñas dinámicas
-    (function(){const lights=document.getElementById('lights');const colors=['#ff3b3b','#ffd36b','#66ff99','#7dc3ff'];const total=40;for(let i=0;i<total;i++){const b=document.createElement('span');b.className='bulb';b.style.left=(i*(100/(total-1)))+'%';b.style.color=colors[i%colors.length];lights.appendChild(b);}})();
+    (function(){
+      const g=document.getElementById('garland');
+      const colors=['#ff3b3b','#ffd36b','#66ff99','#7dc3ff'];
+      for(let i=0;i<42;i++){
+        const b=document.createElement('span');
+        b.className='bulb';
+        b.style.left=(i*(100/41))+'%';
+        b.style.color=colors[i%colors.length];
+        g.appendChild(b);
+      }
+    })();
 
-    // Copos de nieve suaves
-    (function snow(){const container=document.getElementById('snow');const count=80;for(let i=0;i<count;i++){const f=document.createElement('span');f.className='flake';f.style.left=Math.random()*100+'%';f.style.animation=`fall ${6+Math.random()*10}s linear ${Math.random()*6}s infinite`;container.appendChild(f);}const style=document.createElement('style');style.textContent='@keyframes fall{to{transform:translateY(105vh)}}';document.head.appendChild(style);})();
+    (function(){
+      const s=document.getElementById('snow');
+      for(let i=0;i<90;i++){
+        const f=document.createElement('span');
+        f.className='flake';
+        f.style.left=Math.random()*100+'%';
+        f.style.animation=`fall ${6+Math.random()*10}s linear ${Math.random()*6}s infinite`;
+        s.appendChild(f);
+      }
+      const style=document.createElement('style');
+      style.textContent='@keyframes fall{to{transform:translateY(105vh)}}';
+      document.head.appendChild(style);
+    })();
 
-    // Countdown a 1 de diciembre
     function nextDecFirst(){const now=new Date();const year=now.getMonth()>10||(now.getMonth()===10&&now.getDate()>30)?now.getFullYear()+1:now.getFullYear();return new Date(year,11,1,0,0,0,0);}
-    function updateCountdown(){const target=nextDecFirst();const now=new Date();let diff=target-now;if(diff<0)diff=0;const sec=Math.floor(diff/1000);const d=Math.floor(sec/86400);const h=Math.floor((sec%86400)/3600);const m=Math.floor((sec%3600)/60);const s=sec%60;document.getElementById('d').textContent=d;document.getElementById('h').textContent=h.toString().padStart(2,'0');document.getElementById('m').textContent=m.toString().padStart(2,'0');document.getElementById('s').textContent=s.toString().padStart(2,'0');}
-    setInterval(updateCountdown,1000);updateCountdown();
-    document.getElementById('year').textContent=new Date().getFullYear();
+    function renderCountdown(){const target=nextDecFirst();const now=new Date();let diff=target-now;if(diff<0)diff=0;const sec=Math.floor(diff/1000);const d=Math.floor(sec/86400);const h=Math.floor((sec%86400)/3600);const m=Math.floor((sec%3600)/60);const s=sec%60;document.getElementById('d').textContent=d;document.getElementById('h').textContent=h.toString().padStart(2,'0');document.getElementById('m').textContent=m.toString().padStart(2,'0');document.getElementById('s').textContent=s.toString().padStart(2,'0');}
+    setInterval(renderCountdown,1000);renderCountdown();document.getElementById('year').textContent=new Date().getFullYear();
 
-    // Botón de sonido con campanita
     const radio=document.getElementById('radio');
-    const btn=document.getElementById('unmute-btn');
-    function checkMuted(){btn.style.display=radio.muted?'block':'none';}
-    radio.addEventListener('play',checkMuted);
-    btn.addEventListener('click',()=>{radio.muted=false;radio.play();checkMuted();const bell=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3');bell.play();});
-    document.addEventListener('click',()=>{radio.play().catch(()=>{});checkMuted();},{once:true});
+    const unmute=document.getElementById('unmute');
+    const qr=document.getElementById('qr');
+    function toggle(){unmute.style.display=radio.muted?'inline-block':'none'}
+    radio.addEventListener('play',()=>{
+      toggle();
+      if(!radio.muted) qr.classList.add('active');
+    });
+    document.addEventListener('click',()=>{radio.play().catch(()=>{});toggle()},{once:true});
+    unmute.addEventListener('click',()=>{
+      radio.muted=false;
+      radio.play();
+      toggle();
+      qr.classList.add('active');
+      new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_1df3d41474.mp3?filename=christmas-bells-111539.mp3').play();
+    });
   </script>
 </body>
 </html>
