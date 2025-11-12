@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="es">
 <head>
   <style>
@@ -19,50 +20,48 @@
   (function(){
     const cover = document.getElementById('cover');
     const meta  = document.getElementById('metaText');
-    let last='';
+    let last='';function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
 
-    function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+function parseTitleArtist(s){
+  s = clean(s).replace(/^🎶\s*Sonando ahora:\s*/i,'').replace(/^\"|\"$/g,'');
+  if(s.includes(' — ')){ const p=s.split(' — '); return {title:clean(p[0]).replace(/^\"|\"$/g,''), artist:clean(p.slice(1).join(' — '))}; }
+  if(s.includes(' - ')){ const p=s.split(' - '); return {artist:clean(p[0]), title:clean(p.slice(1).join(' - '))}; }
+  return {title:s, artist:''};
+}
 
-    function parseTitleArtist(s){
-      s = clean(s).replace(/^🎶\s*Sonando ahora:\s*/i,'').replace(/^\"|\"$/g,'');
-      if(s.includes(' — ')){ const p=s.split(' — '); return {title:clean(p[0]).replace(/^\"|\"$/g,''), artist:clean(p.slice(1).join(' — '))}; }
-      if(s.includes(' - ')){ const p=s.split(' - '); return {artist:clean(p[0]), title:clean(p.slice(1).join(' - '))}; }
-      return {title:s, artist:''};
-    }
-
-    async function fetchCover(q){
-      if(!q){ cover.style.display='none'; cover.classList.remove('shine'); return; }
-      try{
-        const r = await fetch('https://itunes.apple.com/search?media=music&limit=1&term=' + encodeURIComponent(q));
-        const j = await r.json();
-        if(j && j.results && j.results.length){
-          let url = j.results[0].artworkUrl100 || j.results[0].artworkUrl60;
-          if(url){
-            url = url.replace(/100x100bb\.(jpg|png)/,'300x300bb.$1');
-            cover.src = url;
-            cover.style.display = 'block';
-            cover.classList.add('shine'); // activa animación
-            return;
-          }
-        }
-      }catch(e){}
-      cover.style.display='none';
-      cover.classList.remove('shine'); // desactiva animación si no hay imagen
-    }
-
-    setInterval(()=>{
-      const t = clean(meta.textContent||'');
-      if(t && t!==last){
-        last = t;
-        const pa = parseTitleArtist(t);
-        const term = clean(`${pa.title} ${pa.artist}`);
-        fetchCover(term);
+async function fetchCover(q){
+  if(!q){ cover.style.display='none'; cover.classList.remove('shine'); return; }
+  try{
+    const r = await fetch('https://itunes.apple.com/search?media=music&limit=1&term=' + encodeURIComponent(q));
+    const j = await r.json();
+    if(j && j.results && j.results.length){
+      let url = j.results[0].artworkUrl100 || j.results[0].artworkUrl60;
+      if(url){
+        url = url.replace(/100x100bb\.(jpg|png)/,'300x300bb.$1');
+        cover.src = url;
+        cover.style.display = 'block';
+        cover.classList.add('shine'); // activa animación
+        return;
       }
-    }, 5000);
-  })();
-  </script>
-  <!-- ✨ Brillo de carátula reactivo al ritmo (Web Audio API) -->
-  <script>
+    }
+  }catch(e){}
+  cover.style.display='none';
+  cover.classList.remove('shine'); // desactiva animación si no hay imagen
+}
+
+setInterval(()=>{
+  const t = clean(meta.textContent||'');
+  if(t && t!==last){
+    last = t;
+    const pa = parseTitleArtist(t);
+    const term = clean(`${pa.title} ${pa.artist}`);
+    fetchCover(term);
+  }
+}, 5000);
+
+})(); </script>
+
+  <!-- ✨ Brillo de carátula reactivo al ritmo (Web Audio API) -->  <script>
   (function(){
     const cover = document.getElementById('cover');
     const audio = document.getElementById('radio');
@@ -133,9 +132,7 @@
     audio.addEventListener('play',  startReactive);
     audio.addEventListener('pause', stopReactive);
   })();
-  </script>
-  <!-- 🎇 Guirnalda reactiva al ritmo (si existe #garland) -->
-  <script>
+  </script>  <!-- 🎇 Guirnalda reactiva al ritmo (si existe #garland) -->  <script>
   (function(){
     const audio = document.getElementById('radio');
     const garland = document.getElementById('garland');
@@ -199,6 +196,5 @@
     audio.addEventListener('play', start);
     audio.addEventListener('pause', stop);
   })();
-  </script>
-</body>
+  </script></body>
 </html>
