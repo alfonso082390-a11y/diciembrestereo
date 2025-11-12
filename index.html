@@ -9,7 +9,7 @@
   <link rel="icon" href="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg1:#0f2e23;--bg2:#184f3a;--card:#0b2018;--text:#fff;--accent:#f7d774;--brand:#e53935}
+    :root{--bg1:#0f2e23;--bg2:#184f3a;--card:#0b2018;--text:#fff;--accent:#f7d774}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--text);background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh;overflow-x:hidden;position:relative}
     .container{max-width:980px;margin:0 auto;padding:24px;position:relative;z-index:2}
@@ -28,4 +28,180 @@
 
     /* Acciones con guirnalda */
     .actions{text-align:center;position:relative;overflow:hidden}
-    .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12p
+    .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;background:#fff;color:#b00000;font-weight:900;text-decoration:none;border:1px solid #ffffff33;transition:transform .15s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 0 18px #ffd36b}
+    .btn.app{background:linear-gradient(180deg,var(--accent),#ffffff);color:#2a1b00}
+
+    /* Guirnalda */
+    .garland{position:absolute;top:0;left:0;width:100%;height:56px;pointer-events:none}
+    .garland::before{content:"";position:absolute;left:0;right:0;top:18px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,#2b1b00 0 24px,#3a2605 24px 48px);opacity:.5}
+    .bulb{position:absolute;top:6px;width:20px;height:20px;border-radius:50%;box-shadow:0 0 12px currentColor,0 0 24px currentColor;transform-origin:top center;opacity:.9}
+    .bulb.flick{animation:flicker 2.8s infinite ease-in-out alternate}
+    @keyframes flicker{0%{filter:brightness(.9)}100%{filter:brightness(1.35)}}
+
+    /* Countdown */
+    .countdown{display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:12px;justify-content:center;max-width:520px;margin:10px auto 0}
+    .unit{background:#092017;border:1px solid #ffffff22;border-radius:14px;padding:12px;text-align:center}
+    .num{font-family:Montserrat,Inter,sans-serif;font-weight:900;font-size:clamp(1.6rem,1.2rem+1.5vw,2.2rem)}
+    .label{opacity:.8;font-weight:700}
+
+    /* Top 5 */
+    .songs{display:grid;gap:10px}
+    .song{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0a1b15;border:1px solid #ffffff22;border-radius:12px;padding:10px 12px;flex-wrap:wrap}
+    .song-left{display:flex;align-items:center;gap:12px;min-width:250px}
+    .pos{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg,#ffd36b,#e0b44a);color:#2a1b00;font-weight:900}
+    .title{font-weight:800}
+    .artist{opacity:.85;font-size:.95rem}
+    .song .ask{padding:8px 12px;border-radius:999px;border:0;background:#fff;color:#b00000;font-weight:900;text-decoration:none}
+    .song .ask:hover{transform:translateY(-1px)}
+
+    /* ❄️ Nieve */
+    .snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .flake{position:absolute;top:-10px;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.85;filter:blur(.3px)}
+
+    footer{opacity:.9;text-align:center;margin:24px 0 6px}
+  </style>
+</head>
+<body>
+  <!-- nieve -->
+  <div class="snow" id="snow"></div>
+
+  <div class="container">
+    <header>
+      <img class="logo" src="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" alt="Logo Diciembre Stereo">
+      <h1>Diciembre Stereo</h1>
+      <p class="tag">Como aquellos diciembres • Música 24/7 🎄</p>
+    </header>
+
+    <section class="card audio">
+      <h2>Escúchanos en vivo</h2>
+      <audio id="radio" muted autoplay controls>
+        <source src="https://c23.radioboss.fm:8195/stream" type="audio/mpeg" />
+        Tu navegador no soporta audio HTML5.
+      </audio>
+      <button id="unmute" class="unmute">🔔 Activar sonido</button>
+    </section>
+
+    <section class="card actions">
+      <div class="garland" id="garland"></div>
+      <h2>Participa con nosotros</h2>
+      <div class="btn-row">
+        <a class="btn" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20una%20canci%C3%B3n%20%F0%9F%8E%B6">💬 Pedir canción</a>
+        <a class="btn" target="_blank" href="https://wa.me/573052051610?text=Reporte%20de%20sinton%C3%ADa%3A%20Estoy%20escuchando%20Diciembre%20Stereo%20desde%20CIUDAD%2C%20PA%C3%8DS%20%F0%9F%8E%84">📻 Reporte de sintonía</a>
+        <a class="btn app" target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=com.jhongalvan.diciembrest">▶️ Descargar App</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Contador para diciembre</h2>
+      <p>¡Rumbo al <strong>1 de diciembre</strong>! 🎅✨</p>
+      <div class="countdown" id="countdown">
+        <div class="unit"><div class="num" id="d">--</div><div class="label">DÍAS</div></div>
+        <div class="unit"><div class="num" id="h">--</div><div class="label">HORAS</div></div>
+        <div class="unit"><div class="num" id="m">--</div><div class="label">MIN</div></div>
+        <div class="unit"><div class="num" id="s">--</div><div class="label">SEG</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🔥 Top 5 de la semana</h2>
+      <div class="songs" id="top5">
+        <div class="song"><div class="song-left"><div class="pos">1</div><div><div class="title">La Víspera de Año Nuevo</div><div class="artist">Pastor López</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20la%20canci%C3%B3n%3A%20La%20V%C3%ADspera%20de%20A%C3%B1o%20Nuevo%20-%20Pastor%20L%C3%B3pez%20%F0%9F%8E%B6">Pedir</a></div>
+        <div class="song"><div class="song-left"><div class="pos">2</div><div><div class="title">Año Nuevo, Vida Nueva</div><div class="artist">Billos Caracas Boys</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20la%20canci%C3%B3n%3A%20A%C3%B1o%20Nuevo%2C%20Vida%20Nueva%20-%20Billos%20Caracas%20Boys%20%F0%9F%8E%B6">Pedir</a></div>
+        <div class="song"><div class="song-left"><div class="pos">3</div><div><div class="title">Cinco Pa' Las Doce</div><div class="artist">Néstor Zavarce</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20la%20canci%C3%B3n%3A%20Cinco%20Pa'%20Las%20Doce%20-%20N%C3%A9stor%20Zavarce%20%F0%9F%8E%B6">Pedir</a></div>
+        <div class="song"><div class="song-left"><div class="pos">4</div><div><div class="title">El Burrito Sabanero</div><div class="artist">Tradicional</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20la%20canci%C3%B3n%3A%20El%20Burrito%20Sabanero%20-%20Tradicional%20%F0%9F%8E%B6">Pedir</a></div>
+        <div class="song"><div class="song-left"><div class="pos">5</div><div><div class="title">Faltan Cinco pa' las Doce</div><div class="artist">Los 50 de Joselito</div></div></div><a class="ask" target="_blank" href="https://wa.me/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20la%20canci%C3%B3n%3A%20Faltan%20Cinco%20pa'%20las%20Doce%20-%20Los%2050%20de%20Joselito%20%F0%9F%8E%B6">Pedir</a></div>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Diciembre Stereo</footer>
+  </div>
+
+  <script>
+    // Footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Autoplay policies
+    const radio = document.getElementById('radio');
+    const unmute = document.getElementById('unmute');
+    function showUnmute(){ unmute.style.display = (radio.muted || radio.volume === 0) ? 'inline-block' : 'none'; }
+    showUnmute();
+    unmute.addEventListener('click', ()=>{ radio.muted=false; radio.volume=1; radio.play().catch(()=>{}); showUnmute(); });
+    document.addEventListener('click', ()=>{ radio.play().catch(()=>{}); showUnmute(); }, { once:true });
+
+    // Countdown 1 de diciembre
+    function nextDecFirst(){
+      const now=new Date();
+      const year=(now.getMonth()>10 || (now.getMonth()===10 && now.getDate()>30)) ? now.getFullYear()+1 : now.getFullYear();
+      return new Date(year,11,1,0,0,0,0);
+    }
+    function renderCountdown(){
+      const target = nextDecFirst();
+      const now = new Date();
+      let diff = target - now;
+      if(diff < 0) diff = 0;
+      const sec = Math.floor(diff/1000);
+      const d = Math.floor(sec/86400);
+      const h = Math.floor((sec%86400)/3600);
+      const m = Math.floor((sec%3600)/60);
+      const s = sec%60;
+      document.getElementById('d').textContent = d;
+      document.getElementById('h').textContent = String(h).padStart(2,'0');
+      document.getElementById('m').textContent = String(m).padStart(2,'0');
+      document.getElementById('s').textContent = String(s).padStart(2,'0');
+    }
+    setInterval(renderCountdown, 1000); renderCountdown();
+
+    // Guirnalda: degradado de color + flicker suave (sin WebAudio, compatible total)
+    (function(){
+      const g=document.getElementById('garland');
+      const total=48;
+      const bulbs=[];
+      for(let i=0;i<total;i++){
+        const b=document.createElement('span');
+        b.className='bulb flick';
+        b.style.left=(i*(100/(total-1)))+'%';
+        g.appendChild(b);
+        bulbs.push(b);
+      }
+      // Animación de color en HSL (recorre el arco iris) con desfase por bombillo
+      let t0=performance.now();
+      function loop(now){
+        const dt = (now - t0)/1000; // segundos
+        for(let i=0;i<bulbs.length;i++){
+          const phase = (i/total)*360;         // desfase por posición
+          const hue   = (phase + dt*60) % 360; // velocidad de cambio (60°/s)
+          const sat   = 85;
+          const lum   = 60;
+          bulbs[i].style.color = `hsl(${hue}deg, ${sat}%, ${lum}%)`;
+          // leve balanceo
+          const sway = Math.sin((dt*2)+(i*0.5))*1.2;
+          bulbs[i].style.transform = `translateY(${sway}px)`;
+          // brillo alterno suave (desfase adicional)
+          const glow = 10 + 12*(0.5+0.5*Math.sin((dt*1.6)+(i*0.9)));
+          bulbs[i].style.boxShadow = `0 0 ${glow}px currentColor, 0 0 ${Math.floor(glow*1.8)}px currentColor`;
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    })();
+
+    // Nieve
+    (function(){
+      const snow=document.getElementById('snow');
+      for(let i=0;i<90;i++){
+        const f=document.createElement('span');
+        f.className='flake';
+        f.style.left=Math.random()*100+'%';
+        f.style.animation=`fall ${6+Math.random()*10}s linear ${Math.random()*6}s infinite`;
+        f.style.width=f.style.height=2+Math.random()*6+'px';
+        snow.appendChild(f);
+      }
+      const style=document.createElement('style');
+      style.textContent='@keyframes fall{to{transform:translateY(105vh)}}';
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>
