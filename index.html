@@ -1,200 +1,140 @@
 <!doctype html>
-
 <html lang="es">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diciembre Stereo | Página oficial</title>
+  <meta name="description" content="Diciembre Stereo – música navideña y parrandera 24/7." />
+  <meta name="theme-color" content="#165936" />
+  <link rel="icon" href="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* 🎨 Carátula con brillo navideño */
-    .meta img{
-      width:54px;height:54px;object-fit:cover;border-radius:10px;margin-left:8px;
-      display:none;box-shadow:0 0 10px #0008;transition:transform .6s ease, box-shadow .6s ease;
-    }
-    .meta img.shine{animation:coverGlow 3.2s ease-in-out infinite alternate}
-    @keyframes coverGlow{
-      0%{transform:scale(1);box-shadow:0 0 10px #0008,0 0 0 #00ff0033}
-      100%{transform:scale(1.05);box-shadow:0 0 14px #0008,0 0 22px #ff000080}
-    }
+    :root{--bg1:#0f2e23;--bg2:#184f3a;--card:#0b2018;--text:#fff;--accent:#f7d774;--brand:#e53935}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--text);background:linear-gradient(160deg,var(--bg1),var(--bg2)) min(100vh,100%)}
+    .container{max-width:980px;margin:0 auto;padding:24px}
+    header{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+    .logo{width:140px;height:auto;filter:drop-shadow(0 6px 20px #0007)}
+    h1{font-family:Montserrat,Inter,sans-serif;margin:0;font-size:clamp(1.6rem,1.1rem + 2.4vw,3rem)}
+    .tag{opacity:.9;margin:0}
+
+    .card{background:var(--card);border:1px solid #ffffff20;border-radius:16px;box-shadow:0 12px 32px #0006;padding:18px;margin-top:18px}
+    .card h2{font-family:Montserrat,Inter,sans-serif;margin:0 0 10px;font-size:1.3rem}
+
+    /* Audio */
+    .audio{display:flex;flex-direction:column;align-items:center;gap:10px}
+    audio{width:100%;max-width:480px}
+    .unmute{display:none;background:linear-gradient(180deg,var(--accent),#dbb857);border:0;color:#2a1b00;font-weight:900;border-radius:999px;padding:10px 14px;cursor:pointer}
+
+    /* Countdown */
+    .countdown{display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:12px;justify-content:center;max-width:520px;margin:10px auto 0}
+    .unit{background:#092017;border:1px solid #ffffff22;border-radius:14px;padding:12px;text-align:center}
+    .num{font-family:Montserrat,Inter,sans-serif;font-weight:900;font-size:clamp(1.6rem,1.2rem+1.5vw,2.2rem)}
+    .label{opacity:.8;font-weight:700}
+
+    /* Top 5 */
+    .songs{display:grid;gap:10px}
+    .song{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0a1b15;border:1px solid #ffffff22;border-radius:12px;padding:10px 12px}
+    .song-left{display:flex;align-items:center;gap:12px}
+    .pos{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg,#ffd36b,#e0b44a);color:#2a1b00;font-weight:900}
+    .title{font-weight:800}
+    .artist{opacity:.85;font-size:.95rem}
+
+    footer{opacity:.9;text-align:center;margin:24px 0 6px}
+      /* Botones de acción */
+    .actions{text-align:center}
+    .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;background:#fff;color:#b00000;font-weight:900;text-decoration:none;border:1px solid #ffffff33}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.app{background:linear-gradient(180deg,var(--accent),#ffffff);color:#2a1b00}
   </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <img class="logo" src="https://static.mytuner.mobi/media/tvos_radios/693/diciembre-stereo.eca6450d.png" alt="Logo Diciembre Stereo">
+      <h1>Diciembre Stereo</h1>
+      <p class="tag">Como aquellos diciembres • Música 24/7 🎄</p>
+    </header>
+
+    <section class=\"card audio\">
+      <h2>Escúchanos en vivo</h2>
+      <audio id=\"radio\" muted autoplay controls>
+        <source src=\"https:\/\/c23.radioboss.fm:8195\/stream\" type=\"audio\/mpeg\" \/>
+        Tu navegador no soporta audio HTML5.
+      </audio>
+      <button id=\"unmute\" class=\"unmute\">🔔 Activar sonido<\/button>
+    <\/section>
+
+    <section class=\"card actions\">
+      <h2>Participa con nosotros</h2>
+      <div class=\"btn-row\">
+        <a class=\"btn\" target=\"_blank\" href=\"https:\/\/wa.me\/573052051610?text=Hola%20Diciembre%20Stereo%2C%20quiero%20pedir%20una%20cancion%3A%20ARTISTA%20-%20TITULO\">💬 Pedir canción<\/a>
+        <a class=\"btn\" target=\"_blank\" href=\"https:\/\/wa.me\/573052051610?text=Reporte%20de%20sintonia%3A%20Estoy%20escuchando%20Diciembre%20Stereo%20desde%20CIUDAD%2C%20PAIS%20%F0%9F%8E%84\">📻 Reporte de sintonía<\/a>
+        <a class=\"btn app\" target=\"_blank\" rel=\"noopener\" href=\"https:\/\/play.google.com\/store\/apps\/details?id=com.jhongalvan.diciembrest\">▶️ Descargar App<\/a>
+      <\/div>
+    <\/section>
+
+    <section class="card">
+      <h2>Contador para diciembre</h2>
+      <p>¡Rumbo al <strong>1 de diciembre</strong>! 🎅✨</p>
+      <div class="countdown" id="countdown">
+        <div class="unit"><div class="num" id="d">--</div><div class="label">DÍAS</div></div>
+        <div class="unit"><div class="num" id="h">--</div><div class="label">HORAS</div></div>
+        <div class="unit"><div class="num" id="m">--</div><div class="label">MIN</div></div>
+        <div class="unit"><div class="num" id="s">--</div><div class="label">SEG</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🔥 Top 5 de la semana</h2>
+      <div class="songs" id="top5">
+        <div class="song"><div class="song-left"><div class="pos">1</div><div><div class="title">La Víspera de Año Nuevo</div><div class="artist">Pastor López</div></div></div></div>
+        <div class="song"><div class="song-left"><div class="pos">2</div><div><div class="title">Año Nuevo, Vida Nueva</div><div class="artist">Billos Caracas Boys</div></div></div></div>
+        <div class="song"><div class="song-left"><div class="pos">3</div><div><div class="title">Cinco Pa' Las Doce</div><div class="artist">Néstor Zavarce</div></div></div></div>
+        <div class="song"><div class="song-left"><div class="pos">4</div><div><div class="title">El Burrito Sabanero</div><div class="artist">Tradicional</div></div></div></div>
+        <div class="song"><div class="song-left"><div class="pos">5</div><div><div class="title">Faltan Cinco pa' las Doce</div><div class="artist">Los 50 de Joselito</div></div></div></div>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Diciembre Stereo</footer>
+  </div>
+
   <script>
-  (function(){
-    const cover = document.getElementById('cover');
-    const meta  = document.getElementById('metaText');
-    let last='';function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+    // Año en footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-function parseTitleArtist(s){
-  s = clean(s).replace(/^🎶\s*Sonando ahora:\s*/i,'').replace(/^\"|\"$/g,'');
-  if(s.includes(' — ')){ const p=s.split(' — '); return {title:clean(p[0]).replace(/^\"|\"$/g,''), artist:clean(p.slice(1).join(' — '))}; }
-  if(s.includes(' - ')){ const p=s.split(' - '); return {artist:clean(p[0]), title:clean(p.slice(1).join(' - '))}; }
-  return {title:s, artist:''};
-}
+    // Botón activar sonido (por políticas de autoplay)
+    const radio = document.getElementById('radio');
+    const unmute = document.getElementById('unmute');
+    function updateUnmute(){ unmute.style.display = (radio.muted || radio.volume === 0) ? 'inline-block' : 'none'; }
+    updateUnmute();
+    unmute.addEventListener('click', ()=>{ radio.muted=false; radio.volume=1; radio.play().catch(()=>{}); updateUnmute(); });
+    document.addEventListener('click', ()=>{ radio.play().catch(()=>{}); updateUnmute(); }, { once:true });
+    radio.addEventListener('play', updateUnmute);
+    radio.addEventListener('volumechange', updateUnmute);
 
-async function fetchCover(q){
-  if(!q){ cover.style.display='none'; cover.classList.remove('shine'); return; }
-  try{
-    const r = await fetch('https://itunes.apple.com/search?media=music&limit=1&term=' + encodeURIComponent(q));
-    const j = await r.json();
-    if(j && j.results && j.results.length){
-      let url = j.results[0].artworkUrl100 || j.results[0].artworkUrl60;
-      if(url){
-        url = url.replace(/100x100bb\.(jpg|png)/,'300x300bb.$1');
-        cover.src = url;
-        cover.style.display = 'block';
-        cover.classList.add('shine'); // activa animación
-        return;
-      }
+    // Countdown al 1 de diciembre (cada año)
+    function nextDecFirst(){
+      const now = new Date();
+      const year = (now.getMonth()>10 || (now.getMonth()===10 && now.getDate()>30)) ? now.getFullYear()+1 : now.getFullYear();
+      return new Date(year, 11, 1, 0, 0, 0, 0); // 1 diciembre
     }
-  }catch(e){}
-  cover.style.display='none';
-  cover.classList.remove('shine'); // desactiva animación si no hay imagen
-}
-
-setInterval(()=>{
-  const t = clean(meta.textContent||'');
-  if(t && t!==last){
-    last = t;
-    const pa = parseTitleArtist(t);
-    const term = clean(`${pa.title} ${pa.artist}`);
-    fetchCover(term);
-  }
-}, 5000);
-
-})(); </script>
-
-  <!-- ✨ Brillo de carátula reactivo al ritmo (Web Audio API) -->  <script>
-  (function(){
-    const cover = document.getElementById('cover');
-    const audio = document.getElementById('radio');
-    if(!cover || !audio) return;
-
-    // Intentar habilitar CORS para analizar audio (si el servidor lo permite)
-    try{ audio.crossOrigin = audio.crossOrigin || 'anonymous'; }catch(e){}
-
-    let ctx, analyser, src, data, raf;
-
-    function initCtx(){
-      if(ctx) return true;
-      try{
-        ctx = new (window.AudioContext||window.webkitAudioContext)();
-        analyser = ctx.createAnalyser();
-        analyser.fftSize = 1024; // menor latencia visual
-        data = new Uint8Array(analyser.frequencyBinCount);
-        src = ctx.createMediaElementSource(audio);
-        src.connect(analyser);
-        // Mantener reproducción normal
-        src.connect(ctx.destination);
-        return true;
-      }catch(err){
-        // Fallback: dejar solo la animación por CSS si no se puede analizar (CORS/permiso)
-        console.debug('Analyzer no disponible:', err);
-        return false;
-      }
+    function renderCountdown(){
+      const t = nextDecFirst();
+      const now = new Date();
+      let diff = t - now; if(diff < 0) diff = 0;
+      const sec = Math.floor(diff/1000);
+      const d = Math.floor(sec/86400);
+      const h = Math.floor((sec%86400)/3600);
+      const m = Math.floor((sec%3600)/60);
+      const s = sec%60;
+      document.getElementById('d').textContent = d;
+      document.getElementById('h').textContent = String(h).padStart(2,'0');
+      document.getElementById('m').textContent = String(m).padStart(2,'0');
+      document.getElementById('s').textContent = String(s).padStart(2,'0');
     }
-
-    function level(){
-      if(!analyser) return 0;
-      analyser.getByteFrequencyData(data);
-      // Promedio simple (puedes ponderar graves)
-      let sum=0; for(let i=0;i<data.length;i++){ sum += data[i]; }
-      return sum / data.length / 255; // 0..1
-    }
-
-    function loop(){
-      const v = level();
-      // Mapear a brillo/escala (suave)
-      const scale = 1 + v*0.10; // hasta 10% zoom
-      // Mezclar rojo/verde: más verde en niveles medios, rojo en picos
-      const red   = Math.min(255, Math.floor(80 + v*175));
-      const green = Math.min(255, Math.floor(80 + (0.6+0.4*Math.sin(performance.now()/300)) * 175 * Math.max(v,0.2)));
-      const glow1 = `0 0 14px #0008`;
-      const glow2 = `0 0 ${Math.floor(26 + v*28)}px rgba(${red},0,0,0.8)`;
-      const glow3 = `0 0 ${Math.floor(20 + v*24)}px rgba(0,${green},0,0.7)`;
-      cover.style.transform = `scale(${scale.toFixed(3)})`;
-      cover.style.boxShadow = `${glow1}, ${glow2}, ${glow3}`;
-      raf = requestAnimationFrame(loop);
-    }
-
-    function startReactive(){
-      if(!initCtx()) return; // si falla, no hacemos nada
-      if(ctx.state === 'suspended') ctx.resume().catch(()=>{});
-      if(!raf) raf = requestAnimationFrame(loop);
-    }
-
-    function stopReactive(){
-      if(raf){ cancelAnimationFrame(raf); raf=null; }
-      // Vuelve a un brillo dorado suave por defecto
-      cover.style.boxShadow = '0 0 10px #0008, 0 0 18px #ff000066, 0 0 18px #00ff0066';
-      cover.style.transform = 'scale(1.02)';
-    }
-
-    // Arrancar cuando haya interacción o cuando se desmutee
-    document.addEventListener('click', startReactive, {once:true});
-    audio.addEventListener('play',  startReactive);
-    audio.addEventListener('pause', stopReactive);
-  })();
-  </script>  <!-- 🎇 Guirnalda reactiva al ritmo (si existe #garland) -->  <script>
-  (function(){
-    const audio = document.getElementById('radio');
-    const garland = document.getElementById('garland');
-    if(!audio || !garland) return; // si la guirnalda no existe en este documento, no hace nada
-
-    try{ audio.crossOrigin = audio.crossOrigin || 'anonymous'; }catch(e){}
-
-    let ctx, analyser, src, data, raf;
-
-    function initCtx(){
-      if(ctx) return true;
-      try{
-        ctx = new (window.AudioContext||window.webkitAudioContext)();
-        analyser = ctx.createAnalyser();
-        analyser.fftSize = 1024;
-        data = new Uint8Array(analyser.frequencyBinCount);
-        src = ctx.createMediaElementSource(audio);
-        src.connect(analyser);
-        src.connect(ctx.destination);
-        return true;
-      }catch(err){
-        console.debug('Analyzer guirnalda no disponible:', err);
-        return false;
-      }
-    }
-
-    const bulbs = ()=> Array.from(garland.querySelectorAll('.bulb'));
-
-    function energy(){
-      if(!analyser) return 0;
-      analyser.getByteFrequencyData(data);
-      // prioriza graves/medios para efecto de beat
-      let sum=0, count=0;
-      for(let i=2;i<Math.min(80,data.length);i++){ sum += data[i]; count++; }
-      const avg = count? (sum/count)/255 : 0;
-      return Math.min(1, Math.max(0, avg));
-    }
-
-    function loop(){
-      const v = energy(); // 0..1
-      const now = performance.now();
-      const bs = bulbs();
-      for(let i=0;i<bs.length;i++){
-        const b = bs[i];
-        // Fase para que no todos pulsen igual
-        const phase = (Math.sin((now/250)+(i*0.9))+1)/2; // 0..1
-        const k = 0.3 + 0.9*v*phase; // intensidad combinada
-        const blur = Math.floor(10 + k*24);
-        const y = (phase*2 - 1) * (v*2); // leve movimiento vertical
-        b.style.transform = `translateY(${y.toFixed(2)}px)`;
-        b.style.boxShadow = `0 0 ${blur}px currentColor, 0 0 ${Math.floor(blur*1.6)}px currentColor`;
-        b.style.opacity = (0.6 + 0.4*k).toFixed(2);
-      }
-      raf = requestAnimationFrame(loop);
-    }
-
-    function start(){ if(!initCtx()) return; if(ctx.state==='suspended') ctx.resume().catch(()=>{}); if(!raf) raf=requestAnimationFrame(loop); }
-    function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
-
-    document.addEventListener('click', start, {once:true});
-    audio.addEventListener('play', start);
-    audio.addEventListener('pause', stop);
-  })();
-  </script></body>
+    setInterval(renderCountdown, 1000); renderCountdown();
+  </script>
+</body>
 </html>
